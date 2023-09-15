@@ -4,12 +4,7 @@ import Hero from "./components/Hero"
 import Card from "./components/Card"
 import data from "./data/data"
 
-
-//photos
-// import KatieZafImage from './images/katie-zaferes.png';
-// import WeddingImage from './images/wedding.png';
-// import BikeImage from './images/bike.png';
-
+//npm start - to start server
 function App() {
   const cards = data.map(item => {
     return(
