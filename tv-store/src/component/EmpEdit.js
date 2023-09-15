@@ -27,7 +27,6 @@ const EmpEdit = () => {
     }
 
     const{empid}=useParams();
-    const[empData, empDataChange]=useState({});
 
     useEffect(()=> {
         fetch("http://localhost:8050/employee/"+empid).then((res)=> {
@@ -41,7 +40,7 @@ const EmpEdit = () => {
         }).catch((err)=> {
             console.log(err.message);
         })
-    },[]);
+    },[empid]);
     return (
         <div>
             <div className="row">
