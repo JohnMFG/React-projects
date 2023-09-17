@@ -1,23 +1,23 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const EmpCreate = () => {
+const TvCreate = () => {
 
-    const[name,nameChange] = useState("");
-    const[email,emailChange] = useState("");
-    const[phone,phoneChange] = useState("");
-    const[active,activeChange] = useState(true);
+    const[brand,brandChange] = useState("");
+    const[model,modelChange] = useState("");
+    const[resoliution,resoliutionChange] = useState("");
+    const[price,priceChange] = useState("");
     const navigate=useNavigate();
 
     const handleSubmit=(e)=>{
         e.preventDefault();
-        const empData={name, email, phone, active};
+        const tvData={brand, model, resoliution, price};
 
-        fetch("http://localhost:8050/employee",
+        fetch("http://localhost:8050/tv",
         {
             method:"POST",
             headers:{"content-type":"application/json"},
-            body:JSON.stringify(empData)
+            body:JSON.stringify(tvData)
         }).then((res)=> {
             alert('Added successfully')
             navigate('/')
@@ -33,30 +33,26 @@ const EmpCreate = () => {
                     <form onSubmit={handleSubmit} className="container">
                         <div className="card">
                             <div className="card-title">
-                                <h2>Create Employee</h2>
+                                <h2>Add TV</h2>
                             </div>
                             <div className="card-body">
                                 <div className="row">
                                     <div className="col-lg-12">
-                                        {/* <div className="form-group">
-                                            <label>ID</label>
-                                            <input value={id} disabled="disabled" className="form-control"></input>
-                                        </div> */}
                                         <div className="form-group">
                                             <label>Name</label>
-                                            <input required value={name} onChange={e=>nameChange(e.target.value)} className="form-control"></input>
+                                            <input required value={brand} onChange={e=>brandChange(e.target.value)} className="form-control"></input>
                                         </div>
                                         <div className="form-group">
-                                            <label>Email</label>
-                                            <input required value={email} onChange={e=>emailChange(e.target.value)} className="form-control"></input>
+                                            <label>Model</label>
+                                            <input required value={model} onChange={e=>modelChange(e.target.value)} className="form-control"></input>
                                         </div>
                                         <div className="form-group">
-                                            <label>Phone</label>
-                                            <input value={phone} onChange={e=>phoneChange(e.target.value)} className="form-control"></input>
+                                            <label>Resoliution</label>
+                                            <input value={resoliution} onChange={e=>resoliutionChange(e.target.value)} className="form-control"></input>
                                         </div>
-                                        <div className="form-check">
-                                            <input checked={active} onChange={e=>activeChange(e.target.checked)} type="checkbox" className="form-check-input"></input>
-                                                <label className="form-check-label"> Active</label>
+                                        <div className="form-group">
+                                            <label>Price</label>
+                                            <input value={price} onChange={e=>priceChange(e.target.value)} className="form-control"></input>
                                         </div>
                                         <div className="form-group">
                                             <button className="btn btn-success" type="submit">Save</button>
@@ -73,4 +69,4 @@ const EmpCreate = () => {
     )
 }
 
-export default EmpCreate;
+export default TvCreate;

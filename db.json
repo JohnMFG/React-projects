@@ -1,24 +1,57 @@
 {
-  "employee": [
+  "tv": [
     {
       "id": 1,
-      "name": "John",
-      "email": "john2@gmail.com",
-      "phone": "863334222"
+      "brand": "John",
+      "model": "john2@gmail.com",
+      "resoliution": "8"
     },
     {
       "id": 2,
-      "name": "SSD",
-      "email": "dasdf@df",
-      "phone": "22",
+      "brand": "SSD",
+      "model": "dasdf@df",
+      "resoliution": "22",
       "active": true
     },
     {
       "id": 3,
-      "name": "fgsddDD",
-      "email": "dssf@df",
-      "phone": "3434",
+      "brand": "fgsddDD",
+      "model": "dssf@df",
+      "resoliution": "3434",
       "active": true
+    },
+    {
+      "brand": "fgsdsa",
+      "model": "df@dfs",
+      "resoliution": "2323",
+      "active": true,
+      "id": 4
+    },
+    {
+      "brand": "AAA",
+      "model": "aaa",
+      "resoliution": "3434",
+      "id": 5
+    },
+    {
+      "brand": "ww",
+      "model": "qq",
+      "resoliution": "2",
+      "id": 6
+    },
+    {
+      "id": 7,
+      "brand": "gg",
+      "model": "g",
+      "resoliution": "23",
+      "price": "5555"
+    },
+    {
+      "brand": "55",
+      "model": "34",
+      "resoliution": "4444",
+      "price": "89",
+      "id": 8
     }
   ]
 }

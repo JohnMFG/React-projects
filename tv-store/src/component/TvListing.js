@@ -2,19 +2,19 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const EmpListing = () => {
-    const[empData,empDataChange] = useState(null);
+const TvListing = () => {
+    const[TvData,TvDataChange] = useState(null);
     const navigate=useNavigate();
 
     const LoadInfo=(id)=>{
-        navigate("/employee/info/"+id);
+        navigate("/tv/info/"+id);
     }
     const LoadEdit=(id)=>{
-        navigate("/employee/edit/"+id);
+        navigate("/tv/edit/"+id);
     }
     const LoadRemove=(id)=>{
         if(window.confirm('Confirm deletion')){
-            fetch("http://localhost:8050/employee/"+id,
+            fetch("http://localhost:8050/tv/"+id,
         {
             method:"DELETE"
         }).then((res)=> {
@@ -27,10 +27,10 @@ const EmpListing = () => {
 
 
     useEffect(() => {
-        fetch("http://localhost:8050/employee").then((res)=> {
+        fetch("http://localhost:8050/tv").then((res)=> {
             return res.json();
         }).then((resp)=>{
-            empDataChange(resp);
+            TvDataChange(resp);
         }).catch((err)=> {
             console.log(err.message);
         })
@@ -39,30 +39,32 @@ const EmpListing = () => {
         <div className="container">
             <div className="card">
                 <div className="card-title">
-                    <h2>Employee Listing</h2>
+                    <h2>Tv Listing</h2>
                 </div>
                 <div className="card-body">
                     <div>
-                        <Link to="employee/create" className="btn btn-success">Add new</Link>
+                        <Link to="tv/create" className="btn btn-success">Add new</Link>
                     </div>
                     <table className="table table-bordered">
                         <thead className="bg-dark text-white">
                             <tr>
                                 <td>ID</td>
-                                <td>Name</td>
-                                <td>Email</td>
-                                <td>Phone</td>
+                                <td>Brand</td>
+                                <td>Model</td>
+                                <td>Resoliution</td>
+                                <td>Price</td>
                                 <td>Action</td>
                             </tr>
                         </thead>
                         <tbody>
-                            {   empData &&
-                                empData.map(item => (
+                            {   TvData &&
+                                TvData.map(item => (
                                     <tr key={item.id}>
                                         <td>{item.id}</td>
-                                        <td>{item.name}</td>
-                                        <td>{item.email}</td>
-                                        <td>{item.phone}</td>
+                                        <td>{item.brand}</td>
+                                        <td>{item.model}</td>
+                                        <td>{item.resoliution}</td>
+                                        <td>{item.price}</td>
                                         <td>
                                             <a onClick={()=>{LoadEdit(item.id)}} className="btn btn-success">Edit</a>
                                             <a onClick={()=>{LoadRemove(item.id)}} className="btn btn-danger">Delete</a>
@@ -79,4 +81,4 @@ const EmpListing = () => {
     );
 }
 
-export default EmpListing;
+export default TvListing;
