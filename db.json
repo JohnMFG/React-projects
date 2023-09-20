@@ -2,56 +2,85 @@
   "tv": [
     {
       "id": 1,
-      "brand": "John",
+      "brand": "Fddf",
       "model": "john2@gmail.com",
-      "resoliution": "8"
+      "resolution": "8",
+      "price": "12"
     },
     {
       "id": 2,
       "brand": "SSD",
       "model": "dasdf@df",
-      "resoliution": "22",
+      "resolution": "22",
       "active": true
     },
     {
       "id": 3,
       "brand": "fgsddDD",
       "model": "dssf@df",
-      "resoliution": "3434",
+      "resolution": "3434",
       "active": true
     },
     {
       "brand": "fgsdsa",
       "model": "df@dfs",
-      "resoliution": "2323",
+      "resolution": "2323",
       "active": true,
       "id": 4
     },
     {
       "brand": "AAA",
       "model": "aaa",
-      "resoliution": "3434",
+      "resolution": "3434",
       "id": 5
     },
     {
       "brand": "ww",
       "model": "qq",
-      "resoliution": "2",
+      "resolution": "2",
       "id": 6
     },
     {
       "id": 7,
       "brand": "gg",
       "model": "g",
-      "resoliution": "23",
+      "resolution": "23",
       "price": "5555"
     },
     {
       "brand": "55",
       "model": "34",
-      "resoliution": "4444",
+      "resolution": "4444",
       "price": "89",
       "id": 8
+    },
+    {
+      "brand": "DS",
+      "model": "ss",
+      "resolution": "-23",
+      "price": "33",
+      "id": 9
+    },
+    {
+      "brand": "23",
+      "model": "23",
+      "resolution": "45",
+      "price": "23",
+      "id": 10
+    },
+    {
+      "brand": "23",
+      "model": "23",
+      "resolution": "44",
+      "price": "1444",
+      "id": 11
+    },
+    {
+      "brand": "fdgf",
+      "model": "dfg",
+      "resolution": "34",
+      "price": "34",
+      "id": 12
     }
   ]
 }

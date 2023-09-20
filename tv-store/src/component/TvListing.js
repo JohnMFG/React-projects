@@ -41,7 +41,7 @@ const TvListing = () => {
                 <div className="card-title">
                     <h2>Tv Listing</h2>
                 </div>
-                <div className="card-body">
+                <div className=" card-body">
                     <div>
                         <Link to="tv/create" className="btn btn-success">Add new</Link>
                     </div>
@@ -63,7 +63,7 @@ const TvListing = () => {
                                         <td>{item.id}</td>
                                         <td>{item.brand}</td>
                                         <td>{item.model}</td>
-                                        <td>{item.resoliution}</td>
+                                        <td>{item.resolution}</td>
                                         <td>{item.price}</td>
                                         <td>
                                             <a onClick={()=>{LoadEdit(item.id)}} className="btn btn-success">Edit</a>

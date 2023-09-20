@@ -1,30 +1,71 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const TvCreate = () => {
+    const [brand, setBrand] = useState("");
+    const [model, setModel] = useState("");
+    const [resolution, setResolution] = useState("");
+    const [price, setPrice] = useState("");
+    const [brandError, setBrandError] = useState("");
+    const [modelError, setModelError] = useState("");
+    const [resolutionError, setResolutionError] = useState("");
+    const [priceError, setPriceError] = useState("");
 
-    const[brand,brandChange] = useState("");
-    const[model,modelChange] = useState("");
-    const[resoliution,resoliutionChange] = useState("");
-    const[price,priceChange] = useState("");
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
-    const handleSubmit=(e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault();
-        const tvData={brand, model, resoliution, price};
 
-        fetch("http://localhost:8050/tv",
-        {
-            method:"POST",
-            headers:{"content-type":"application/json"},
-            body:JSON.stringify(tvData)
-        }).then((res)=> {
-            alert('Added successfully')
-            navigate('/')
-        }).catch((err)=> {
-            console.log(err.message)
-        })
-    }
+        // Reset previous error messages
+        setBrandError("");
+        setModelError("");
+        setResolutionError("");
+        setPriceError("");
+
+        let isValid = true;
+
+        // Validate brand and model as required fields
+        if (brand.trim() === "") {
+            setBrandError("Brand is required");
+            isValid = false;
+        }
+
+        if (model.trim() === "") {
+            setModelError("Model is required");
+            isValid = false;
+        }
+
+        // Validate resolution as a positive number
+        const parsedResolution = parseFloat(resolution);
+        if (isNaN(parsedResolution) || parsedResolution <= 0) {
+            setResolutionError("Resolution must be a positive number");
+            isValid = false;
+        }
+
+        // Validate price as a positive number
+        const parsedPrice = parseFloat(price);
+        if (isNaN(parsedPrice) || parsedPrice <= 0) {
+            setPriceError("Price must be a positive number");
+            isValid = false;
+        }
+
+        if (isValid) {
+            const tvData = { brand, model, resolution, price };
+
+            fetch("http://localhost:8050/tv", {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify(tvData),
+            })
+                .then((res) => {
+                    alert("Added successfully");
+                    navigate("/");
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                });
+        }
+    };
 
     return (
         <div>
@@ -40,23 +81,47 @@ const TvCreate = () => {
                                     <div className="col-lg-12">
                                         <div className="form-group">
                                             <label>Name</label>
-                                            <input required value={brand} onChange={e=>brandChange(e.target.value)} className="form-control"></input>
+                                            <input
+                                                value={brand}
+                                                onChange={(e) => setBrand(e.target.value)}
+                                                className="form-control"
+                                            ></input>
+                                            <span className="text-danger">{brandError}</span>
                                         </div>
                                         <div className="form-group">
                                             <label>Model</label>
-                                            <input required value={model} onChange={e=>modelChange(e.target.value)} className="form-control"></input>
+                                            <input
+                                                value={model}
+                                                onChange={(e) => setModel(e.target.value)}
+                                                className="form-control"
+                                            ></input>
+                                            <span className="text-danger">{modelError}</span>
                                         </div>
                                         <div className="form-group">
-                                            <label>Resoliution</label>
-                                            <input value={resoliution} onChange={e=>resoliutionChange(e.target.value)} className="form-control"></input>
+                                            <label>Resolution</label>
+                                            <input
+                                                value={resolution}
+                                                onChange={(e) => setResolution(e.target.value)}
+                                                className="form-control"
+                                            ></input>
+                                            <span className="text-danger">{resolutionError}</span>
                                         </div>
                                         <div className="form-group">
                                             <label>Price</label>
-                                            <input value={price} onChange={e=>priceChange(e.target.value)} className="form-control"></input>
+                                            <input
+                                                value={price}
+                                                onChange={(e) => setPrice(e.target.value)}
+                                                className="form-control"
+                                            ></input>
+                                            <span className="text-danger">{priceError}</span>
                                         </div>
                                         <div className="form-group">
-                                            <button className="btn btn-success" type="submit">Save</button>
-                                            <Link to="/" className="btn btn-danger">Cancel</Link>
+                                            <button className="btn btn-success" type="submit">
+                                                Save
+                                            </button>
+                                            <Link to="/" className="btn btn-danger">
+                                                Cancel
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
@@ -66,7 +131,7 @@ const TvCreate = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default TvCreate;

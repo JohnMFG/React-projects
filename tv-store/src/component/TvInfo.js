@@ -21,8 +21,8 @@ const TvInfo = () => {
                 <div className="container">
                     <h3>TV brand: {tvData.brand}</h3>
                     <h3>TV email: {tvData.model}</h3>
-                    <h3>TV phone: {tvData.resoliution}</h3>
-                    <h3>TV phone: {tvData.price}</h3>
+                    <h3>TV resolution: {tvData.resolution}</h3>
+                    <h3>TV price: {tvData.price}</h3>
                     <Link className="btn btn-danger" to="/">GO BACK</Link>
                 </div>            
             }
