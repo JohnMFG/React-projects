@@ -17,7 +17,7 @@ const TvEdit = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Reset previous error messages
+
         setBrandError("");
         setModelError("");
         setResolutionError("");
@@ -25,7 +25,7 @@ const TvEdit = () => {
 
         let isValid = true;
 
-        // Validate brand and model as required fields
+
         if (brand.trim() === "") {
             setBrandError("Brand is required");
             isValid = false;
@@ -36,14 +36,14 @@ const TvEdit = () => {
             isValid = false;
         }
 
-        // Validate resolution as a positive number
+
         const parsedResolution = parseFloat(resolution);
         if (isNaN(parsedResolution) || parsedResolution <= 0) {
             setResolutionError("Resolution must be a positive number");
             isValid = false;
         }
 
-        // Validate price as a positive number
+
         const parsedPrice = parseFloat(price);
         if (isNaN(parsedPrice) || parsedPrice <= 0) {
             setPriceError("Price must be a positive number");

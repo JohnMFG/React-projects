@@ -2,17 +2,10 @@
   "tv": [
     {
       "id": 1,
-      "brand": "Fddf",
-      "model": "john2@gmail.com",
-      "resolution": "8",
-      "price": "12"
-    },
-    {
-      "id": 2,
-      "brand": "SSD",
-      "model": "dasdf@df",
-      "resolution": "22",
-      "active": true
+      "brand": "LG",
+      "model": "LG1",
+      "resolution": "720",
+      "price": "200"
     },
     {
       "id": 3,
@@ -69,18 +62,179 @@
       "id": 10
     },
     {
-      "brand": "23",
-      "model": "23",
-      "resolution": "44",
-      "price": "1444",
-      "id": 11
-    },
-    {
       "brand": "fdgf",
       "model": "dfg",
       "resolution": "34",
       "price": "34",
       "id": 12
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "4200",
+      "price": "799",
+      "id": 13
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "4200",
+      "price": "799",
+      "id": 14
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 22
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 23
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 25
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 26
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 27
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 28
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 29
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 30
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 31
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 32
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 33
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 34
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 35
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 36
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 37
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 38
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 39
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 40
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 41
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 42
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 43
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 44
     }
   ]
 }
