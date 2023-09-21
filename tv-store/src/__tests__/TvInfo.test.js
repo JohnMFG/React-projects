@@ -1,7 +1,7 @@
 test('retrieves TV info via the API', async () => {
 
     const expectedTvData = {
-      brand: 'LGG',
+      brand: 'LG',
       model: 'LG1',
       resolution: '720',
       price: '200',
