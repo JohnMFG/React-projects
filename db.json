@@ -3,154 +3,37 @@
     {
       "id": 1,
       "brand": "LG",
-      "model": "LG1",
+      "model": "LG2",
       "resolution": "720",
       "price": "200"
     },
     {
-      "brand": "AAA",
-      "model": "aaa",
-      "resolution": "3434",
-      "id": 5
+      "id": 8,
+      "brand": "SONY",
+      "model": "t56789907",
+      "resolution": "4K",
+      "price": "999"
     },
     {
-      "brand": "ww",
-      "model": "qq",
-      "resolution": "2",
-      "id": 6
+      "id": 10,
+      "brand": "TCL",
+      "model": "HK232",
+      "resolution": "1080p",
+      "price": "23"
     },
     {
-      "id": 7,
-      "brand": "gg",
-      "model": "g",
-      "resolution": "23",
-      "price": "5555"
-    },
-    {
-      "brand": "55",
-      "model": "34",
-      "resolution": "4444",
-      "price": "89",
-      "id": 8
-    },
-    {
-      "brand": "DS",
-      "model": "ss",
-      "resolution": "-23",
-      "price": "33",
-      "id": 9
-    },
-    {
-      "brand": "23",
-      "model": "23",
-      "resolution": "45",
-      "price": "23",
-      "id": 10
-    },
-    {
-      "brand": "fdgf",
-      "model": "dfg",
-      "resolution": "34",
-      "price": "34",
-      "id": 12
-    },
-    {
+      "id": 32,
       "brand": "Samsung",
       "model": "Bravia",
-      "resolution": "4200",
-      "price": "799",
-      "id": 13
+      "resolution": "4K",
+      "price": "1200"
     },
     {
+      "id": 34,
       "brand": "Samsung",
-      "model": "Bravia",
-      "resolution": "4200",
-      "price": "799",
-      "id": 14
-    },
-    {
-      "brand": "Samsung",
-      "model": "Bravia",
+      "model": "TF342",
       "resolution": "1080",
-      "price": "799",
-      "id": 22
-    },
-    {
-      "brand": "Samsung",
-      "model": "Bravia",
-      "resolution": "1080",
-      "price": "799",
-      "id": 23
-    },
-    {
-      "brand": "Samsung",
-      "model": "Bravia",
-      "resolution": "1080",
-      "price": "799",
-      "id": 25
-    },
-    {
-      "brand": "Samsung",
-      "model": "Bravia",
-      "resolution": "1080",
-      "price": "799",
-      "id": 26
-    },
-    {
-      "brand": "Samsung",
-      "model": "Bravia",
-      "resolution": "1080",
-      "price": "799",
-      "id": 27
-    },
-    {
-      "brand": "Samsung",
-      "model": "Bravia",
-      "resolution": "1080",
-      "price": "799",
-      "id": 28
-    },
-    {
-      "brand": "Samsung",
-      "model": "Bravia",
-      "resolution": "1080",
-      "price": "799",
-      "id": 29
-    },
-    {
-      "brand": "Samsung",
-      "model": "Bravia",
-      "resolution": "1080",
-      "price": "799",
-      "id": 30
-    },
-    {
-      "brand": "Samsung",
-      "model": "Bravia",
-      "resolution": "1080",
-      "price": "799",
-      "id": 31
-    },
-    {
-      "brand": "Samsung",
-      "model": "Bravia",
-      "resolution": "1080",
-      "price": "799",
-      "id": 32
-    },
-    {
-      "brand": "Samsung",
-      "model": "Bravia",
-      "resolution": "1080",
-      "price": "799",
-      "id": 33
-    },
-    {
-      "brand": "Samsung",
-      "model": "Bravia",
-      "resolution": "1080",
-      "price": "799",
-      "id": 34
+      "price": "799"
     },
     {
       "brand": "Samsung",
@@ -223,20 +106,6 @@
       "id": 44
     },
     {
-      "brand": "DD",
-      "model": "DSA",
-      "resolution": "43",
-      "price": "422",
-      "id": 45
-    },
-    {
-      "brand": "re",
-      "model": "423",
-      "resolution": "5334",
-      "price": "344",
-      "id": 46
-    },
-    {
       "brand": "fdf",
       "model": "FDx",
       "resolution": "2fdgdfg",
@@ -251,11 +120,18 @@
       "id": 48
     },
     {
-      "brand": "dfg",
-      "model": "dfg",
-      "resolution": "343",
-      "price": "23",
-      "id": 49
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 50
+    },
+    {
+      "brand": "Samsung",
+      "model": "Bravia",
+      "resolution": "1080",
+      "price": "799",
+      "id": 51
     }
   ]
 }
