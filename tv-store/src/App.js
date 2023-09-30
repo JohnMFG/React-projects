@@ -14,6 +14,7 @@ import TvListing from './component/TvListing';
 import TvCreate from './component/TvCreate';
 import TvInfo from './component/TvInfo';
 import TvEdit from './component/TvEdit';
+import RpcTest from './component/RpcTest';
 import { DataProvider } from './context/DataContext';
    
 function App() {   
@@ -27,6 +28,7 @@ function App() {
             <Route path="/tv/create" element={<TvCreate />} />
             <Route path="/tv/info/:tvid" element={<TvInfo />} />
             <Route path="/tv/edit/:tvid" element={<TvEdit />} />
+            <Route path="/rpc" element={<RpcTest />} />
           </Routes>
           </DataProvider> 
       </BrowserRouter>
