@@ -1,28 +1,43 @@
 <?php
 
-namespace tests;
-require_once '../vendor/autoload.php';
+namespace Tests;
 
-class ApiTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+use GuzzleHttp\Client;
+
+class ApiTest extends TestCase
 {
-    protected $baseURL = 'http://localhost'; // Update with your API URL
+    protected $baseURL = 'http://localhost';
+    protected $httpClient;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->httpClient = new Client();
+    }
 
     public function testGetAllUsers()
     {
         $url = $this->baseURL . '/api/users/';
-        $response = file_get_contents($url);
-        $data = json_decode($response, true);
-        $this->assertEquals(200, http_response_code());
+        $response = $this->httpClient->get($url);
+
+        $actualResponseCode = $response->getStatusCode();
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        $this->assertEquals(200, $actualResponseCode);
         $this->assertIsArray($data);
     }
 
     public function testGetUserById()
     {
-        $userId = 1; // Update with a valid user ID
+        $userId = 1; 
         $url = $this->baseURL . '/api/users/' . $userId;
-        $response = file_get_contents($url);
-        $data = json_decode($response, true);
-        $this->assertEquals(200, http_response_code());
+        $response = $this->httpClient->get($url);
+
+        $actualResponseCode = $response->getStatusCode();
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        $this->assertEquals(200, $actualResponseCode);
         $this->assertIsArray($data);
     }
 
@@ -36,23 +51,22 @@ class ApiTest extends \PHPUnit\Framework\TestCase
 
         $url = $this->baseURL . '/api/user/save';
         $options = [
-            'http' => [
-                'method' => 'POST',
-                'header' => 'Content-type: application/json',
-                'content' => json_encode($userData),
-            ],
+            'json' => $userData,
         ];
-        $context = stream_context_create($options);
-        $response = file_get_contents($url, false, $context);
-        $data = json_decode($response, true);
-        $this->assertEquals(200, http_response_code());
+
+        $response = $this->httpClient->post($url, $options);
+
+        $actualResponseCode = $response->getStatusCode();
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        $this->assertEquals(200, $actualResponseCode);
         $this->assertIsArray($data);
         $this->assertEquals(1, $data['status']);
     }
 
     public function testUpdateUser()
     {
-        $userId = 1; // Update with a valid user ID
+        $userId = 3; 
         $userData = [
             'id' => $userId,
             'name' => 'Updated User',
@@ -62,29 +76,30 @@ class ApiTest extends \PHPUnit\Framework\TestCase
 
         $url = $this->baseURL . '/api/user/' . $userId . '/edit';
         $options = [
-            'http' => [
-                'method' => 'PUT',
-                'header' => 'Content-type: application/json',
-                'content' => json_encode($userData),
-            ],
+            'json' => $userData,
         ];
-        $context = stream_context_create($options);
-        $response = file_get_contents($url, false, $context);
-        $data = json_decode($response, true);
-        $this->assertEquals(200, http_response_code());
+
+        $response = $this->httpClient->put($url, $options);
+
+        $actualResponseCode = $response->getStatusCode();
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        $this->assertEquals(200, $actualResponseCode);
         $this->assertIsArray($data);
         $this->assertEquals(1, $data['status']);
     }
 
     public function testDeleteUser()
     {
-        $userId = 1; // Update with a valid user ID
+        $userId = 10;
         $url = $this->baseURL . '/api/user/' . $userId . '/delete';
-        $options = ['http' => ['method' => 'DELETE']];
-        $context = stream_context_create($options);
-        $response = file_get_contents($url, false, $context);
-        $data = json_decode($response, true);
-        $this->assertEquals(200, http_response_code());
+
+        $response = $this->httpClient->delete($url);
+
+        $actualResponseCode = $response->getStatusCode();
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        $this->assertEquals(200, $actualResponseCode);
         $this->assertIsArray($data);
         $this->assertEquals(1, $data['status']);
     }

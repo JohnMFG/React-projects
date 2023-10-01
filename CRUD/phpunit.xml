@@ -4,7 +4,7 @@
     stopOnFailure="false">
 
     <testsuites>
-        <testsuite name="apiTest">
+        <testsuite name="ApiTest">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

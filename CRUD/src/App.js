@@ -1,5 +1,6 @@
 
 //api folder has to be in xamp, htdocs
+//composer install - to install all needed dependencies 
 //for test - composer global require phpunit/phpunit
 
 

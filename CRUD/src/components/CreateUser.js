@@ -41,7 +41,8 @@ export default function CreateUser() {
             axios
                 .post('http://localhost:80/api/user/save', inputs)
                 .then(function (response) {
-                    console.log(response.data);
+                    console.log('Response Status Code:', response.status);
+                    console.log('Response Data:', response.data);
                     navigate('/');
                 })
                 .catch(function (error) {
