@@ -1,13 +1,19 @@
+
+//api folder has to be in xamp, htdocs
+//for test - composer global require phpunit/phpunit
+
+
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import './App.css';
 import CreateUser from './components/CreateUser';
 import EditUser from './components/EditUser';
 import ListUser from './components/ListUser';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import ViewUser from './components/ViewUser';
 
 function App() {
   return (
     <div className="App">
-      <h5>React CRUD operations using PHP API and MySQL</h5>
 
       <BrowserRouter>
         <nav>
@@ -24,6 +30,7 @@ function App() {
           <Route index element={<ListUser />} />
           <Route path="user/create" element={<CreateUser />} />
           <Route path="user/:id/edit" element={<EditUser />} />
+          <Route path="user/:id/view" element={<ViewUser />} />
         </Routes>
       </BrowserRouter>
     </div>

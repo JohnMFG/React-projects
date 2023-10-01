@@ -1,32 +1,33 @@
-import axios from "axios"
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function ListUser() {
-
     const [users, setUsers] = useState([]);
+
     useEffect(() => {
         getUsers();
     }, []);
 
     function getUsers() {
-        axios.get('http://localhost:3306/api/users/').then(function(response) {
+        axios.get('http://localhost:80/api/users/').then(function (response) {
             console.log(response.data);
             setUsers(response.data);
         });
     }
 
     const deleteUser = (id) => {
-        axios.delete(`http://localhost:3306/api/user/${id}/delete`).then(function(response){
+        axios.delete(`http://localhost:80/api/user/${id}/delete`).then(function (response) {
             console.log(response.data);
             getUsers();
         });
     }
+
     return (
-        <div>
+        <div className="container mt-4">
             <h1>List Users</h1>
-            <table>
-                <thead>
+            <table className="table table-striped table-bordered">
+                <thead className="thead-dark">
                     <tr>
                         <th>#</th>
                         <th>Name</th>
@@ -43,12 +44,12 @@ export default function ListUser() {
                             <td>{user.email}</td>
                             <td>{user.mobile}</td>
                             <td>
-                                <Link to={`user/${user.id}/edit`} style={{marginRight: "10px"}}>Edit</Link>
-                                <button onClick={() => deleteUser(user.id)}>Delete</button>
+                                <Link to={`user/${user.id}/view`} className="btn btn-success mr-2">View</Link>
+                                <Link to={`user/${user.id}/edit`} className="btn btn-primary mr-2">Edit</Link>
+                                <button onClick={() => deleteUser(user.id)} className="btn btn-danger">Delete</button>
                             </td>
                         </tr>
                     )}
-                    
                 </tbody>
             </table>
         </div>

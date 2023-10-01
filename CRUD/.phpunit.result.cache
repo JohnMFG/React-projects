@@ -1,0 +1,1 @@
+{"version":1,"defects":{"ApiTest::testGetAllUsers":7,"ApiTest::testGetUserById":7,"ApiTest::testCreateUser":7,"ApiTest::testUpdateUser":7,"ApiTest::testDeleteUser":7},"times":{"ApiTest::testGetAllUsers":0.014,"ApiTest::testGetUserById":0.002,"ApiTest::testCreateUser":0.02,"ApiTest::testUpdateUser":0.003,"ApiTest::testDeleteUser":0.003}}
