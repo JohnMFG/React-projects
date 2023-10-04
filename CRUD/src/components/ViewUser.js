@@ -31,6 +31,10 @@ export default function ViewUser() {
                         <td>{user.email}</td>
                     </tr>
                     <tr>
+                        <th>Status:</th>
+                        <td>{user.status}</td>
+                    </tr>
+                    <tr>
                         <th>Mobile:</th>
                         <td>{user.mobile}</td>
                     </tr>

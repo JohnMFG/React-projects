@@ -32,6 +32,7 @@ export default function ListUser() {
                         <th>#</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Status</th>
                         <th>Mobile</th>
                         <th>Actions</th>
                     </tr>
@@ -42,6 +43,7 @@ export default function ListUser() {
                             <td>{user.id}</td>
                             <td>{user.name}</td>
                             <td>{user.email}</td>
+                            <td>{user.status}</td>
                             <td>{user.mobile}</td>
                             <td>
                                 <Link to={`user/${user.id}/view`} className="btn btn-success mr-2">View</Link>

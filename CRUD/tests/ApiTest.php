@@ -30,7 +30,7 @@ class ApiTest extends TestCase
 
     public function testGetUserById()
     {
-        $userId = 1; 
+        $userId = 35; 
         $url = $this->baseURL . '/api/users/' . $userId;
         $response = $this->httpClient->get($url);
 
@@ -46,7 +46,8 @@ class ApiTest extends TestCase
         $userData = [
             'name' => 'Test User',
             'email' => 'test@example.com',
-            'mobile' => '1234567890',
+            'status' => 'ACTIVE',
+            'mobile' => '111111111',
         ];
 
         $url = $this->baseURL . '/api/user/save';
@@ -66,28 +67,32 @@ class ApiTest extends TestCase
 
     public function testUpdateUser()
     {
-        $userId = 3; 
+        $userId = 31;
         $userData = [
             'id' => $userId,
             'name' => 'Updated User',
             'email' => 'updated@example.com',
+            'status' => 'ACTIVE',
             'mobile' => '9876543210',
         ];
-
+    
         $url = $this->baseURL . '/api/user/' . $userId . '/edit';
         $options = [
             'json' => $userData,
         ];
-
+    
         $response = $this->httpClient->put($url, $options);
-
+    
         $actualResponseCode = $response->getStatusCode();
         $data = json_decode($response->getBody()->getContents(), true);
-
+    
         $this->assertEquals(200, $actualResponseCode);
         $this->assertIsArray($data);
         $this->assertEquals(1, $data['status']);
     }
+    
+    
+    
 
     public function testDeleteUser()
     {

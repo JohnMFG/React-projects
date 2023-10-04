@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function CreateUser() {
     const navigate = useNavigate();
 
-    const [inputs, setInputs] = useState({});
+    const [inputs, setInputs] = useState({ status: 'ACTIVE' });
     const [errors, setErrors] = useState({});
 
     const handleChange = (event) => {
@@ -69,12 +69,7 @@ export default function CreateUser() {
                                 <label>Name: </label>
                             </th>
                             <td>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    onChange={handleChange}
-                                    className="form-control"
-                                />
+                                <input type="text" name="name" onChange={handleChange} className="form-control"/>
                                 {errors.name && <p className="error">{errors.name}</p>}
                             </td>
                         </tr>
@@ -83,12 +78,7 @@ export default function CreateUser() {
                                 <label>Email: </label>
                             </th>
                             <td>
-                                <input
-                                    type="text"
-                                    name="email"
-                                    onChange={handleChange}
-                                    className="form-control"
-                                />
+                                <input type="text" name="email" onChange={handleChange} className="form-control"/>
                                 {errors.email && <p className="error">{errors.email}</p>}
                             </td>
                         </tr>
@@ -97,13 +87,19 @@ export default function CreateUser() {
                                 <label>Mobile: </label>
                             </th>
                             <td>
-                                <input
-                                    type="text"
-                                    name="mobile"
-                                    onChange={handleChange}
-                                    className="form-control"
-                                />
+                                <input type="text" name="mobile" onChange={handleChange} className="form-control"/>
                                 {errors.mobile && <p className="error">{errors.mobile}</p>}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <label>Status: </label>
+                            </th>
+                            <td>
+                                <select name="status" onChange={handleChange} className="form-control">
+                                    <option value="ACTIVE">ACTIVE</option>
+                                    <option value="INACTIVE">INACTIVE</option>
+                                </select>
                             </td>
                         </tr>
                         <tr>

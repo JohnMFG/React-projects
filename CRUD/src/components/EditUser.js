@@ -8,6 +8,7 @@ export default function EditUser() {
     const [inputs, setInputs] = useState({
         name: "",
         email: "",
+        status: "",
         mobile: "",
     });
     const [errors, setErrors] = useState({});
@@ -106,6 +107,17 @@ export default function EditUser() {
                                     onChange={handleChange}
                                     className="form-control"
                                 />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <label>Status: </label>
+                            </th>
+                            <td>
+                                <select name="status" value={inputs.status} onChange={handleChange} className="form-control">
+                                    <option value="ACTIVE">ACTIVE</option>
+                                    <option value="INACTIVE">INACTIVE</option>
+                                </select>
                             </td>
                         </tr>
                         <tr>
