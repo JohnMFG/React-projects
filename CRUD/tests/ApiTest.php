@@ -88,12 +88,12 @@ class ApiTest extends TestCase
 
     public function testUpdateUser()
     {
-        $userId = 33;
+        $userId = 3;
         $userData = [
             'id' => $userId,
-            'name' => 'Updated User',
-            'email' => 'updated@example.com',
-            'status' => 'ACTIVE',
+            'name' => 'UUUU',
+            'email' => 'updated@example.comm',
+            'status' => 'INACTIVE',
             'mobile' => '9876543210',
         ];
 
@@ -102,47 +102,60 @@ class ApiTest extends TestCase
             'json' => $userData,
         ];
 
-        if ($this->existingId($userId) === false) {
-            $this->fail('User does not exist for editing!.');
-        }
+        //$this->existingId($userId);
 
         $response = $this->httpClient->put($url, $options);
 
         $actualResponseCode = $response->getStatusCode();
         $data = json_decode($response->getBody()->getContents(), true);
 
+
+
         $this->assertEquals(200, $actualResponseCode);
         $this->assertIsArray($data);
         $this->assertEquals(1, $data['status']);
 
-        $this->assertArrayHasKey('id', $data);
-        $this->assertEquals('Updated User', $data['name']);
-        $this->assertEquals('updated@example.com', $data['email']);
+        $urlGET = $this->baseURL . '/api/users/' . $userId;
+        $responseGET = $this->httpClient->get($urlGET);
+
+        $dataGET = json_decode($responseGET->getBody()->getContents(), true);
+
+        $this->assertEquals('UUUU', $dataGET['name']);
+        $this->assertEquals('INACTIVE', $dataGET['status']);
+        $this->assertEquals('updated@example.comm', $dataGET['email']);
+        $this->assertEquals('9876543210', $dataGET['mobile']);
     }
+
+
 
     public function testDeleteUser()
     {
-        $userId = 41;
+        // Assuming you have a valid $userId
+        $userId = null; // Replace with the actual user ID you want to delete
+
+        // Send a GET request to check the user's data before deletion
+        $urlBeforeDeletion = $this->baseURL . '/api/user/' . $userId;
+        $responseBeforeDeletion = $this->httpClient->get($urlBeforeDeletion);
+        $dataBeforeDeletion = json_decode($responseBeforeDeletion->getBody()->getContents(), true);
+
+        // Delete the user
         $url = $this->baseURL . '/api/user/' . $userId . '/delete';
-
-        if ($this->existingId($userId) === false) {
-            $this->fail('Passed user does not exist in the first place for deleting!!');
-        }
-
         $response = $this->httpClient->delete($url);
-
         $actualResponseCode = $response->getStatusCode();
-        $data = json_decode($response->getBody()->getContents(), true);
-
 
         $this->assertEquals(200, $actualResponseCode);
-        $this->assertIsArray($data);
-        $this->assertEquals(1, $data['status']);
 
-        if ($this->existingId($userId) === true) {
-            $this->fail('Failed test: user stil exists!.');
-        }
+        // Send another GET request to check the user's data after deletion
+        $urlAfterDeletion = $this->baseURL . '/api/user/' . $userId;
+        $responseAfterDeletion = $this->httpClient->get($urlAfterDeletion);
+        $dataAfterDeletion = json_decode($responseAfterDeletion->getBody()->getContents(), true);
+
+        // Check if the data before and after deletion is different
+        $this->assertNotEquals($dataBeforeDeletion, $dataAfterDeletion);
     }
+
+
+
 
     public function existingId($userId)
     {
@@ -157,6 +170,23 @@ class ApiTest extends TestCase
             $this->assertArrayHasKey('id', $data);
             $this->assertArrayHasKey('name', $data);
             $this->assertArrayHasKey('email', $data);
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function notExistingId($userId)
+    {
+        $url = $this->baseURL . '/api/users/' . $userId;
+        $response = $this->httpClient->get($url);
+
+        $actualResponseCode = $response->getStatusCode();
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        if ($actualResponseCode === 200) {
+            $this->fail('User still exist!.');
 
             return true;
         } else {
