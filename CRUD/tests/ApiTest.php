@@ -43,16 +43,26 @@ class ApiTest extends TestCase
 
     public function testGetUserById()
     {
-        $userId = 40;
-        if ($this->existingId($userId) === false) {
-            $this->fail('User does not exist!.');
-        }
+        $userId = 4;
+        $this->existingId($userId);
+
+        $url = $this->baseURL . '/api/users/' . $userId;
+        $response = $this->httpClient->get($url);
+
+        $data = json_decode($response->getBody()->getContents(), true);
+        $this->assertIsArray($data, 'Maybe user does not exist?');
+        $this->assertArrayHasKey('id', $data);
+        $this->assertArrayHasKey('name', $data);
+        $this->assertArrayHasKey('email', $data);
+
+        var_dump($data);
+
     }
 
     public function testCreateUser()
     {
         $userData = [
-            'name' => 'Test U',
+            'name' => 'Test Create',
             'email' => 'test@example.com',
             'status' => 'ACTIVE',
             'mobile' => '111111111',
@@ -77,7 +87,7 @@ class ApiTest extends TestCase
         $this->assertArrayHasKey('id', $data); // Check for 'id' key in the response
         $this->assertGreaterThan(0, $data['id']); // Ensure 'id' is a positive integer
 
-        $this->assertEquals('Test User', $data['name']);
+        $this->assertEquals('Test Create', $data['name']);
         $this->assertEquals('test@example.com', $data['email']);
         // Add more validations for other fields as needed
 
@@ -88,7 +98,7 @@ class ApiTest extends TestCase
 
     public function testUpdateUser()
     {
-        $userId = 3;
+        $userId = 2;
         $userData = [
             'id' => $userId,
             'name' => 'UUUU',
@@ -102,7 +112,7 @@ class ApiTest extends TestCase
             'json' => $userData,
         ];
 
-        //$this->existingId($userId);
+        $this->existingId($userId);
 
         $response = $this->httpClient->put($url, $options);
 
@@ -131,7 +141,9 @@ class ApiTest extends TestCase
     public function testDeleteUser()
     {
         // Assuming you have a valid $userId
-        $userId = null; // Replace with the actual user ID you want to delete
+        $userId = 2; // Replace with the actual user ID you want to delete
+
+        $this->existingId($userId);
 
         // Send a GET request to check the user's data before deletion
         $urlBeforeDeletion = $this->baseURL . '/api/user/' . $userId;
@@ -170,23 +182,6 @@ class ApiTest extends TestCase
             $this->assertArrayHasKey('id', $data);
             $this->assertArrayHasKey('name', $data);
             $this->assertArrayHasKey('email', $data);
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function notExistingId($userId)
-    {
-        $url = $this->baseURL . '/api/users/' . $userId;
-        $response = $this->httpClient->get($url);
-
-        $actualResponseCode = $response->getStatusCode();
-        $data = json_decode($response->getBody()->getContents(), true);
-
-        if ($actualResponseCode === 200) {
-            $this->fail('User still exist!.');
 
             return true;
         } else {
