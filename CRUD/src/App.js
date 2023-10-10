@@ -12,6 +12,7 @@ import EditUser from './components/EditUser';
 import ListUser from './components/ListUser';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ViewUser from './components/ViewUser';
+import StreamingApp from './components/StreamingApp';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="user/create" element={<CreateUser />} />
           <Route path="user/:id/edit" element={<EditUser />} />
           <Route path="user/:id/view" element={<ViewUser />} />
+          <Route path="user/:id/stream" element={<StreamingApp />} />
         </Routes>
       </BrowserRouter>
     </div>

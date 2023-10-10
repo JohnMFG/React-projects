@@ -30,7 +30,7 @@ class ApiTest extends TestCase
 
     public function testGetUserById()
     {
-        $userId = 35; 
+        $userId = 10; 
         $url = $this->baseURL . '/api/users/' . $userId;
         $response = $this->httpClient->get($url);
 
@@ -96,7 +96,7 @@ class ApiTest extends TestCase
 
     public function testDeleteUser()
     {
-        $userId = 10;
+        $userId = 5;
         $url = $this->baseURL . '/api/user/' . $userId . '/delete';
 
         $response = $this->httpClient->delete($url);
