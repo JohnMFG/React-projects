@@ -25,44 +25,39 @@ class ApiTest extends TestCase
         $actualResponseCode = $response->getStatusCode();
         $data = json_decode($response->getBody()->getContents(), true);
 
-        // Check for a successful response
         $this->assertEquals(200, $actualResponseCode);
         $this->assertIsArray($data);
 
-        // Additional validations
         foreach ($data as $user) {
             $this->assertArrayHasKey('id', $user);
             $this->assertArrayHasKey('name', $user);
             $this->assertArrayHasKey('email', $user);
-            // Add more validations for user attributes as needed
 
-            // Validate that user status is one of the expected values (ACTIVE, INACTIVE, etc.)
             $this->assertContains($user['status'], ['ACTIVE', 'INACTIVE']);
         }
     }
 
     public function testGetUserById()
     {
-        $userId = 4;
+        $userId =83;
         $this->existingId($userId);
 
-        $url = $this->baseURL . '/api/users/' . $userId;
-        $response = $this->httpClient->get($url);
+        // $url = $this->baseURL . '/api/users/' . $userId;
+        // $response = $this->httpClient->get($url);
 
-        $data = json_decode($response->getBody()->getContents(), true);
-        $this->assertIsArray($data, 'Maybe user does not exist?');
-        $this->assertArrayHasKey('id', $data);
-        $this->assertArrayHasKey('name', $data);
-        $this->assertArrayHasKey('email', $data);
+        // $data = json_decode($response->getBody()->getContents(), true);
+        // $this->assertIsArray($data, 'Maybe user does not exist?');
+        // $this->assertArrayHasKey('id', $data);
+        // $this->assertArrayHasKey('name', $data);
+        // $this->assertArrayHasKey('email', $data);
 
-        var_dump($data);
-
+        // var_dump($data);
     }
 
     public function testCreateUser()
     {
         $userData = [
-            'name' => 'Test Create',
+            'name' => 'S',
             'email' => 'test@example.com',
             'status' => 'ACTIVE',
             'mobile' => '111111111',
@@ -78,27 +73,22 @@ class ApiTest extends TestCase
         $actualResponseCode = $response->getStatusCode();
         $data = json_decode($response->getBody()->getContents(), true);
 
-        // Check for a successful response
+
         $this->assertEquals(200, $actualResponseCode);
         $this->assertIsArray($data);
         $this->assertEquals(1, $data['status']);
 
-        // Additional validations
-        $this->assertArrayHasKey('id', $data); // Check for 'id' key in the response
-        $this->assertGreaterThan(0, $data['id']); // Ensure 'id' is a positive integer
+        $this->assertArrayHasKey('created_id', $data);
+        $this->assertGreaterThan(0, $data['created_id']);
 
-        $this->assertEquals('Test Create', $data['name']);
-        $this->assertEquals('test@example.com', $data['email']);
-        // Add more validations for other fields as needed
-
-        // Test that the created user actually exists by fetching it by ID and comparing data
-        //$this->testGetUserById();
+        $createdId = (int)$data['created_id'];
+        $this->checkData($createdId, $userData);
     }
 
 
     public function testUpdateUser()
     {
-        $userId = 2;
+        $userId = 43;
         $userData = [
             'id' => $userId,
             'name' => 'UUUU',
@@ -120,49 +110,37 @@ class ApiTest extends TestCase
         $data = json_decode($response->getBody()->getContents(), true);
 
 
-
         $this->assertEquals(200, $actualResponseCode);
         $this->assertIsArray($data);
         $this->assertEquals(1, $data['status']);
 
-        $urlGET = $this->baseURL . '/api/users/' . $userId;
-        $responseGET = $this->httpClient->get($urlGET);
+        $this->checkData($userId, $userData);
 
-        $dataGET = json_decode($responseGET->getBody()->getContents(), true);
-
-        $this->assertEquals('UUUU', $dataGET['name']);
-        $this->assertEquals('INACTIVE', $dataGET['status']);
-        $this->assertEquals('updated@example.comm', $dataGET['email']);
-        $this->assertEquals('9876543210', $dataGET['mobile']);
     }
 
 
 
     public function testDeleteUser()
     {
-        // Assuming you have a valid $userId
-        $userId = 2; // Replace with the actual user ID you want to delete
+        
+        $userId = 91;
 
         $this->existingId($userId);
 
-        // Send a GET request to check the user's data before deletion
         $urlBeforeDeletion = $this->baseURL . '/api/user/' . $userId;
         $responseBeforeDeletion = $this->httpClient->get($urlBeforeDeletion);
         $dataBeforeDeletion = json_decode($responseBeforeDeletion->getBody()->getContents(), true);
 
-        // Delete the user
         $url = $this->baseURL . '/api/user/' . $userId . '/delete';
         $response = $this->httpClient->delete($url);
         $actualResponseCode = $response->getStatusCode();
 
         $this->assertEquals(200, $actualResponseCode);
 
-        // Send another GET request to check the user's data after deletion
         $urlAfterDeletion = $this->baseURL . '/api/user/' . $userId;
         $responseAfterDeletion = $this->httpClient->get($urlAfterDeletion);
         $dataAfterDeletion = json_decode($responseAfterDeletion->getBody()->getContents(), true);
 
-        // Check if the data before and after deletion is different
         $this->assertNotEquals($dataBeforeDeletion, $dataAfterDeletion);
     }
 
@@ -183,9 +161,27 @@ class ApiTest extends TestCase
             $this->assertArrayHasKey('name', $data);
             $this->assertArrayHasKey('email', $data);
 
-            return true;
+            var_dump($data);
         } else {
-            return false;
+            $this->fail('Something is wrong');
+        }
+    }
+
+    public function checkData($userId, $data)
+    {
+        $urlGET = $this->baseURL . '/api/users/' . $userId;
+        $responseGET = $this->httpClient->get($urlGET);
+
+        $actualResponseCodeGET = $responseGET->getStatusCode();
+        $dataGET = json_decode($responseGET->getBody()->getContents(), true);
+
+        if ($actualResponseCodeGET === 200) {
+            $this->assertEquals($data['name'], $dataGET['name'], 'fail');
+            $this->assertEquals($data['status'], $dataGET['status']);
+            $this->assertEquals($data['email'], $dataGET['email']);
+            $this->assertEquals($data['mobile'], $dataGET['mobile']);
+        } else {
+            $this->fail('Data does not match!');
         }
     }
 }

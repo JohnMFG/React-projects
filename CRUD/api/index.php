@@ -45,7 +45,9 @@ switch ($method) {
             $stmt->bindParam(':created_at', $created_at);
 
             if ($stmt->execute()) {
-                $response = ['status' => 1, 'message' => 'Record created successfully.'];
+                $insertedId = $conn->lastInsertId();
+                $response = ['status' => 1, 'message' => 'Record created successfully.',
+                            'created_id' => $insertedId];
             } else {
                 $response = ['status' => 0, 'message' => 'Failed to create record.'];
             }

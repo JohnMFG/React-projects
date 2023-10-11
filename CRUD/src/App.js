@@ -27,6 +27,9 @@ function App() {
             <li>
               <Link to="user/create">Create User</Link>
             </li>
+            <li>
+              <Link to="stream">Streaming API</Link>
+            </li>
           </ul>
         </nav>
         <Routes>
@@ -34,7 +37,7 @@ function App() {
           <Route path="user/create" element={<CreateUser />} />
           <Route path="user/:id/edit" element={<EditUser />} />
           <Route path="user/:id/view" element={<ViewUser />} />
-          <Route path="user/:id/stream" element={<StreamingApp />} />
+          <Route path="stream" element={<StreamingApp />} />
         </Routes>
       </BrowserRouter>
     </div>
