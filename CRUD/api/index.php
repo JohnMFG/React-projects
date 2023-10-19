@@ -5,13 +5,22 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: *");
 
-include 'DbConnect.php';
-$objDb = new DbConnect;
-$conn = $objDb->connect();
+
+$environment='testing';
+
+if ($environment === 'testing') {
+    include 'MockDatabase.php';
+    $conn = new MockDatabase(); 
+} else {
+    include 'DbConnect.php';
+    $objDb = new DbConnect();
+    $conn = $objDb->connect();
+}
 
 $method = $_SERVER['REQUEST_METHOD'];
 switch ($method) {
     case "GET":
+        $response = ['status' => 0, 'message' => 'AAAAAAAA.'];
         $sql = "SELECT * FROM users";
         $path = explode('/', $_SERVER['REQUEST_URI']);
         if (isset($path[3]) && is_numeric($path[3])) {
@@ -25,15 +34,13 @@ switch ($method) {
             $stmt->execute();
             $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
-
         echo json_encode($users);
         break;
     case "POST":
         $user = json_decode(file_get_contents('php://input'));
 
-
         if (empty($user->name) || empty($user->email) || empty($user->mobile)) {
-            $response = ['status' => 0, 'message' => 'Please provide all required fields.'];
+            $response = ['status' => 0, 'message' => 'Please provide all required fieldss.'];
         } else {
             $sql = "INSERT INTO users(id, name, email, status, mobile, created_at) VALUES(null, :name, :email, :status, :mobile, :created_at)";
             $stmt = $conn->prepare($sql);
@@ -52,6 +59,7 @@ switch ($method) {
                 $response = ['status' => 0, 'message' => 'Failed to create record.'];
             }
         }
+        
         echo json_encode($response);
         break;
 
@@ -96,3 +104,4 @@ switch ($method) {
         echo json_encode($response);
         break;
 }
+
