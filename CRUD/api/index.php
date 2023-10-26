@@ -5,16 +5,28 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: *");
 
+include 'Container.php';
+include 'DbConnect.php';
+include 'MockDatabase.php';
+$container = new Container();
 
-$environment='testin';
+$container->register('db', function () {
+    return new DbConnect();
+});
+
+$container->register('dbMock', function () {
+    return new MockDatabase();
+});
+
+
+
+$environment='testing';
 include 'UserRepository.php';
 
 if ($environment === 'testing') {
-    include 'MockDatabase.php';
-    $conn = new MockDatabase(); 
+    $conn = $container->resolve('dbMock');
 } else {
-    include 'DbConnect.php';
-    $objDb = new DbConnect();
+    $objDb = $container->resolve('db');
     $conn = $objDb->connect();
 }
 
