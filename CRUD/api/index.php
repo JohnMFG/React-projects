@@ -6,7 +6,8 @@ header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: *");
 
 
-$environment='testing';
+$environment='testin';
+include 'UserRepository.php';
 
 if ($environment === 'testing') {
     include 'MockDatabase.php';
@@ -19,89 +20,53 @@ if ($environment === 'testing') {
 
 $method = $_SERVER['REQUEST_METHOD'];
 switch ($method) {
-    case "GET":
-        $response = ['status' => 0, 'message' => 'AAAAAAAA.'];
-        $sql = "SELECT * FROM users";
+    case 'POST':
+        $user = json_decode(file_get_contents('php://input'));
+        $userRepository = new UserRepository($conn);
+        $response = $userRepository->save((array) $user);
+        echo json_encode($response);
+        break;
+
+    case 'PUT':
+        $requestData = json_decode(file_get_contents('php://input'), true);
+        $id = $requestData['id'];
+        $user = $requestData['user'];
+
+        $userRepository = new UserRepository($conn);
+        $response = $userRepository->update($id, $user);
+        echo json_encode($response);
+        break;
+
+    case 'GET':
+        $userRepository = new UserRepository($conn);
+        $response = ['status' => 0, 'message' => 'Invalid request.'];
         $path = explode('/', $_SERVER['REQUEST_URI']);
+
         if (isset($path[3]) && is_numeric($path[3])) {
-            $sql .= " WHERE id = :id";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':id', $path[3]);
-            $stmt->execute();
-            $users = $stmt->fetch(PDO::FETCH_ASSOC);
-        } else {
-            $stmt = $conn->prepare($sql);
-            $stmt->execute();
-            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
-        echo json_encode($users);
-        break;
-    case "POST":
-        $user = json_decode(file_get_contents('php://input'));
+            $user = $userRepository->findById($path[3]);
 
-        if (empty($user->name) || empty($user->email) || empty($user->mobile)) {
-            $response = ['status' => 0, 'message' => 'Please provide all required fieldss.'];
+            if ($user) {
+                $response = ['status' => 1, 'user' => $user];
+            }
         } else {
-            $sql = "INSERT INTO users(id, name, email, status, mobile, created_at) VALUES(null, :name, :email, :status, :mobile, :created_at)";
-            $stmt = $conn->prepare($sql);
-            $created_at = date('Y-m-d');
-            $stmt->bindParam(':name', $user->name);
-            $stmt->bindParam(':email', $user->email);
-            $stmt->bindParam(':status', $user->status);
-            $stmt->bindParam(':mobile', $user->mobile);
-            $stmt->bindParam(':created_at', $created_at);
-
-            if ($stmt->execute()) {
-                $insertedId = $conn->lastInsertId();
-                $response = ['status' => 1, 'message' => 'Record created successfully.',
-                            'created_id' => $insertedId];
-            } else {
-                $response = ['status' => 0, 'message' => 'Failed to create record.'];
+            $users = $userRepository->findAll();
+            if (!empty($users)) {
+                $response = ['status' => 1, 'users' => $users];
             }
         }
-        
+
         echo json_encode($response);
         break;
 
-    case "PUT":
-        $user = json_decode(file_get_contents('php://input'));
+    case 'DELETE':
+        $requestData = json_decode(file_get_contents('php://input'), true);
+        $id = $requestData['id'];
 
-
-        if (empty($user->id) || empty($user->name) || empty($user->email) || empty($user->mobile)) {
-            $response = ['status' => 0, 'message' => 'Please provide all required fields.'];
-        } else {
-            $sql = "UPDATE users SET name= :name, email =:email, status =:status, mobile =:mobile, updated_at =:updated_at WHERE id = :id";
-            $stmt = $conn->prepare($sql);
-            $updated_at = date('Y-m-d');
-            $stmt->bindParam(':id', $user->id);
-            $stmt->bindParam(':name', $user->name);
-            $stmt->bindParam(':email', $user->email);
-            $stmt->bindParam(':status', $user->status);
-            $stmt->bindParam(':mobile', $user->mobile);
-            $stmt->bindParam(':updated_at', $updated_at);
-
-            if ($stmt->execute()) {
-                $response = ['status' => 1, 'message' => 'Record updated successfully.'];
-            } else {
-                $response = ['status' => 0, 'message' => 'Failed to update record.'];
-            }
-        }
+        $userRepository = new UserRepository($conn);
+        $response = $userRepository->delete($id);
         echo json_encode($response);
         break;
 
-    case "DELETE":
-        $sql = "DELETE FROM users WHERE id = :id";
-        $path = explode('/', $_SERVER['REQUEST_URI']);
-
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':id', $path[3]);
-
-        if ($stmt->execute()) {
-            $response = ['status' => 1, 'message' => 'Record deleted successfully.'];
-        } else {
-            $response = ['status' => 0, 'message' => 'Failed to delete record.'];
-        }
-        echo json_encode($response);
+    default:
         break;
 }
-

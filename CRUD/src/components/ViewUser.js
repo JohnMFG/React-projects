@@ -13,7 +13,12 @@ export default function ViewUser() {
     function getUser() {
         axios.get(`http://localhost:80/api/user/${id}`).then(function (response) {
             console.log(response.data);
-            setUser(response.data);
+
+            if (response.data.status === 1) {
+                setUser(response.data.user);
+            } else {
+                console.error("Failed to fetch user data.");
+            }
         });
     }
 

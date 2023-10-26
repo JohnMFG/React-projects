@@ -4,16 +4,12 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditUser() {
     const navigate = useNavigate();
-
-    const [inputs, setInputs] = useState({
-        name: "",
-        email: "",
-        status: "",
-        mobile: "",
-    });
-    const [errors, setErrors] = useState({});
-
     const { id } = useParams();
+
+    const [inputs, setInputs] = useState({});
+    const [errors, setErrors] = useState({});
+    const [isSaving, setIsSaving] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
 
     useEffect(() => {
         getUser();
@@ -22,7 +18,12 @@ export default function EditUser() {
     function getUser() {
         axios.get(`http://localhost:80/api/user/${id}`).then(function (response) {
             console.log(response.data);
-            setInputs(response.data);
+
+            if (response.data.status === 1) {
+                setInputs(response.data.user);
+            } else {
+                console.error("Failed to fetch user data.");
+            }
         });
     }
 
@@ -56,14 +57,21 @@ export default function EditUser() {
         event.preventDefault();
 
         if (validateInputs()) {
+            setIsSaving(true);
+            setErrorMessage(null);
+
             axios
-                .put(`http://localhost:80/api/user/${id}/edit`, inputs)
+                .put(`http://localhost:80/api/user/${id}/edit`, { id, user: inputs })
                 .then(function (response) {
                     console.log(response.data);
                     navigate('/');
                 })
                 .catch(function (error) {
                     console.error("Server Error:", error.response ? error.response.data : error.message);
+
+                    setErrorMessage(error.response ? error.response.data.message : error.message);
+
+                    setIsSaving(false);
                 });
         }
     };
@@ -72,6 +80,11 @@ export default function EditUser() {
         <div className="container mt-4">
             <h1>Edit User</h1>
             <form onSubmit={handleSubmit}>
+                {errorMessage && (
+                    <div className="alert alert-danger">
+                        {errorMessage}
+                    </div>
+                )}
                 {Object.keys(errors).length > 0 && (
                     <div className="alert alert-danger">
                         {Object.values(errors).map((error, index) => (
@@ -87,7 +100,7 @@ export default function EditUser() {
                             </th>
                             <td>
                                 <input
-                                    value={inputs.name}
+                                    value={inputs.name || ""}
                                     type="text"
                                     name="name"
                                     onChange={handleChange}
@@ -101,7 +114,7 @@ export default function EditUser() {
                             </th>
                             <td>
                                 <input
-                                    value={inputs.email}
+                                    value={inputs.email || ""}
                                     type="text"
                                     name="email"
                                     onChange={handleChange}
@@ -114,7 +127,12 @@ export default function EditUser() {
                                 <label>Status: </label>
                             </th>
                             <td>
-                                <select name="status" value={inputs.status} onChange={handleChange} className="form-control">
+                                <select
+                                    name="status"
+                                    value={inputs.status || ""}
+                                    onChange={handleChange}
+                                    className="form-control"
+                                >
                                     <option value="ACTIVE">ACTIVE</option>
                                     <option value="INACTIVE">INACTIVE</option>
                                 </select>
@@ -126,7 +144,7 @@ export default function EditUser() {
                             </th>
                             <td>
                                 <input
-                                    value={inputs.mobile}
+                                    value={inputs.mobile || ""}
                                     type="text"
                                     name="mobile"
                                     onChange={handleChange}
@@ -136,7 +154,9 @@ export default function EditUser() {
                         </tr>
                         <tr>
                             <td colSpan="2" align="right">
-                                <button className="btn btn-primary">Save</button>
+                                <button className="btn btn-primary" disabled={isSaving}>
+                                    {isSaving ? "Saving..." : "Save"}
+                                </button>
                             </td>
                         </tr>
                     </tbody>

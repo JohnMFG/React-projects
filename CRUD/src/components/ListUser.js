@@ -12,16 +12,27 @@ export default function ListUser() {
     function getUsers() {
         axios.get('http://localhost:80/api/users/').then(function (response) {
             console.log(response.data);
-            setUsers(response.data);
+
+            if (Array.isArray(response.data.users)) {
+                setUsers(response.data.users);
+            } else {
+                console.error("Invalid response format:", response.data);
+            }
         });
     }
 
     const deleteUser = (id) => {
-        axios.delete(`http://localhost:80/api/user/${id}/delete`).then(function (response) {
-            console.log(response.data);
-            getUsers();
-        });
-    }
+        axios
+            .delete(`http://localhost:80/api/user/delete`, { data: { id } })
+            .then(function (response) {
+                console.log(response.data);
+                getUsers();
+            })
+            .catch(function (error) {
+                console.error("Server Error:", error.response ? error.response.data : error.message);
+            });
+    };
+    
 
     return (
         <div className="container mt-4">
@@ -55,5 +66,5 @@ export default function ListUser() {
                 </tbody>
             </table>
         </div>
-    )
+    );
 }
